@@ -1,24 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { useLocalState } from './components/utils/useLocalStorage';
+import { useEffect } from 'react';
+
+
 function App() {
+const [jwt, setJwt] = useLocalState("","jwt");
+
+useEffect(() => {
+    if(!jwt){
+        const payload = {
+            email : "test@test.com",
+            password: "1234"
+        }
+
+        fetch("/api/auth/login",{
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "post",
+            body: JSON.stringify(payload),
+        })
+        .then(res => Promise.all([res.json(),res.headers]))
+        .then(([body,headers]) => {
+            setJwt(headers.get("authorization"));
+        }).catch(err => console.error(err));
+    }
+},[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <div className="main-container">
+              <h1>Bienvenido a Rubify</h1>
+          </div>
   );
 }
 
