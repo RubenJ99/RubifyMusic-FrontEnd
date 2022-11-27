@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import WelcomeComponent from './components/Welcome/WelcomeComponent';
+import LogInComponent from './components/LogIn/LogInComponent';
+import RegisterComponent from './components/Register/RegisterComponent';
+import PrivateRoute from './utils/privateRoute';
+import SongListComponent from './components/Song/SongListComponent';
+import AuthenticatedComponent from './components/Authenticated/AuthenticatedComponent';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Routes>
+            <Route path='/' element={<WelcomeComponent />}/>
+            <Route path='/login' element={<LogInComponent />}/>
+            <Route path='/register' element={<RegisterComponent />} />
+            <Route path='/songs' element={
+                <PrivateRoute>
+                    <SongListComponent />
+                </PrivateRoute>
+            } />
+             <Route path='/authenticated' element={
+                <PrivateRoute>
+                    <AuthenticatedComponent />
+                </PrivateRoute>
+            } />
+          </Routes>
   );
 }
 
