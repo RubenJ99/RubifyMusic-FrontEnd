@@ -9,7 +9,7 @@ body {
   width: 100%;
   height: 100vh;
   color: #fff;
-  background: linear-gradient(45deg,black,darkorange,blue,black);
+  background: linear-gradient(45deg,black,darkorange,lightgreen,black);
   background-size: 400% 400%;
   position: relative;
   animation: cambiar 15s ease-in-out infinite;
