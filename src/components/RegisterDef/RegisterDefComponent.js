@@ -50,7 +50,7 @@ const RegisterDefComponent = () => {
         authority : "1",
     };
 
-    fetch("http://localhost:8080/api/auth/register", {
+    fetch("/api/auth/register", {
       headers: {
         "Content-Type": "application/json",
       },

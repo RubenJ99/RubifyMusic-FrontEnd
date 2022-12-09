@@ -22,7 +22,7 @@ const DefaultNavbarComponent = () => {
   const [user,setUser] = useState("");
 
   useEffect(()=>{
-    fetch(`http://localhost:8080/api/v1/users/${userId}`,{
+    fetch(`/api/v1/users/${userId}`,{
         headers: {
             "Content-Type": "application/json",
             "Authoritzation" : jwt
@@ -31,7 +31,6 @@ const DefaultNavbarComponent = () => {
     }).then(res => {
         if (res.status === 200) return (res.json());
     }).then(data => {
-        console.log(data)
         setUser(data);
     })
   },[])
@@ -68,6 +67,11 @@ const DefaultNavbarComponent = () => {
             <MDBNavbarItem>
               <MDBNavbarLink active href="/likedsongs">
                 Liked songs
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink active href="/" className="link-danger" onClick={() => setJwt("")}>
+                LogOut
               </MDBNavbarLink>
             </MDBNavbarItem>
           </MDBNavbarNav>

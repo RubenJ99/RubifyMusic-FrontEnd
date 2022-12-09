@@ -16,6 +16,7 @@ const LogInComponent = () => {
   const [password, setPassword] = useState("");
 
   const [jwt, setJwt] = useLocalState("", "jwt");
+  const [role, setRole] = useLocalState("","role");
 
   function sendLoginReq() {
     const payload = {
@@ -35,6 +36,7 @@ const LogInComponent = () => {
       })
       .then(([body, headers]) => {
         setJwt(headers.get("authorization"));
+        setRole(body.authority.authority)
         window.location.href = "dashboard";
       })
       .catch((message) => {
