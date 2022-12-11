@@ -44,7 +44,7 @@ const DefaultNavbarComponent = () => {
   }
   
   return (
-    <MDBNavbar expand="lg" light bgColor="light">
+    <MDBNavbar expand="lg" light bgColor="light" sticky>
       <MDBContainer fluid>
         <MDBNavbarBrand href="/dashboard">
           <img src={logo} height="30" alt="app logo" loading="lazy" />

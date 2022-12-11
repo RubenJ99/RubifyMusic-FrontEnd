@@ -15,6 +15,8 @@ import RegisterDefComponent from './components/RegisterDef/RegisterDefComponent'
 import RegisterPerfComponent from './components/RegisterPerf/RegisterPerfComponent';
 import { RedirectToDashboard } from './utils/redirectToDashboard';
 import SongDetails from './components/Song/SongDetailsComponent';
+import LikedSongs from './components/Song/LikedSongsComponent';
+import EditSong from './components/Song/EditSongComponent';
 
 
 function App() {
@@ -60,6 +62,17 @@ function App() {
               <SongDetails />
             </PrivateRoute>
           }/>
+          <Route path='/likedsongs' element={
+            <PrivateRoute>
+              <LikedSongs />
+            </PrivateRoute>
+          } />
+          <Route path='/song-edit' element={
+            <PrivateRoute>
+              <EditSong />
+            </PrivateRoute>
+          }
+          />
           </Routes>
   );
 }

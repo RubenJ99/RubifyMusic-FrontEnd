@@ -33,7 +33,7 @@ const PerformerNavbarComponent = () => {
     }
     
     return (
-      <MDBNavbar expand="lg" light bgColor="light">
+      <MDBNavbar expand="lg" light bgColor="light" sticky>
         <MDBContainer fluid>
           <MDBNavbarBrand href="/dashboard">
             <img src={logo} height="30" alt="app logo" loading="lazy" />
@@ -49,7 +49,7 @@ const PerformerNavbarComponent = () => {
           <MDBCollapse navbar show={showNav}>
             <MDBNavbarNav>
               <MDBNavbarItem>
-                <MDBNavbarLink active href="/my-songs">
+                <MDBNavbarLink active href="/dashboard">
                   My songs
                 </MDBNavbarLink>
               </MDBNavbarItem>
