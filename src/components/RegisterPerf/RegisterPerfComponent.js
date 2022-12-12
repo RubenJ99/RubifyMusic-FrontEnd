@@ -46,7 +46,7 @@ const RegisterPerfComponent = () => {
         expirationDate : exDate,
         nameOnCard : nameOnCard,
         profilePicture: icon,
-        authority : "2",
+        authority : "ROLE_PERFORMER",
     };
 
     fetch("/api/auth/register", {

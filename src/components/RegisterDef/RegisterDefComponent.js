@@ -37,7 +37,6 @@ const RegisterDefComponent = () => {
   }
 
   function sendRegisterReq(){
-    console.log(icon)
     const payload = {
         email : email,
         password : password,
@@ -47,7 +46,7 @@ const RegisterDefComponent = () => {
         expirationDate : "",
         nameOnCard : "",
         profilePicture: icon,
-        authority : "1",
+        authority : "ROLE_DEFAULT",
     };
 
     fetch("/api/auth/register", {

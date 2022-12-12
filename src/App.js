@@ -17,6 +17,8 @@ import { RedirectToDashboard } from './utils/redirectToDashboard';
 import SongDetails from './components/Song/SongDetailsComponent';
 import LikedSongs from './components/Song/LikedSongsComponent';
 import EditSong from './components/Song/EditSongComponent';
+import NewSong from './components/Song/NewSongComponent';
+import AdminAddUserComponent from './components/AdminDashboard/AdminAddUserComponent';
 
 
 function App() {
@@ -73,6 +75,16 @@ function App() {
             </PrivateRoute>
           }
           />
+          <Route path='/upload-song' element={
+            <PrivateRoute>
+              <NewSong />
+            </PrivateRoute>
+          } />
+          <Route path='/add-user' element={
+            <PrivateRoute>
+              <AdminAddUserComponent />
+            </PrivateRoute>
+          } />
           </Routes>
   );
 }

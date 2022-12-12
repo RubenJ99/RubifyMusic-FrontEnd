@@ -19,7 +19,6 @@ const PerformerNavbarComponent = () => {
       }).then(res => {
           if (res.status === 200) return (res.json());
       }).then(data => {
-          console.log(data)
           setUser(data);
       })
     },[])
