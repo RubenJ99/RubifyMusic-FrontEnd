@@ -3,12 +3,14 @@ import { MDBCollapse, MDBContainer, MDBIcon, MDBInputGroup, MDBNavbar, MDBNavbar
 import React, { useEffect, useState } from 'react';
 import { useLocalState } from '../../../utils/useLocalStorage';
 import logo from "../../../images/logo.png";
+import { useNavigate } from 'react-router-dom';
 const PerformerNavbarComponent = () => {
     const [showNav, setShowNav] = useState(false);
     const [jwt,setJwt] = useLocalState("","jwt");
     const [userId,setUserId] = useState(getUserFromJwt());
     const [user,setUser] = useState("");
-  
+    const navigate = useNavigate();
+
     useEffect(()=>{
       fetch(`/api/v1/users/${userId}`,{
           headers: {
@@ -29,6 +31,14 @@ const PerformerNavbarComponent = () => {
         return decJwt.id;
       }
       return [];
+    }
+
+    const showProfile = () => {
+      navigate("/user-detail", {
+        state: {
+          user: user,
+        },
+      })
     }
     
     return (
@@ -64,7 +74,7 @@ const PerformerNavbarComponent = () => {
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBInputGroup className="d-flex w-auto mb-1">
-              <MDBNavbarBrand href="/profile">
+              <MDBNavbarBrand href="/user-detail" onClick={()=>{showProfile()}}>
                 <img src={"data:image/jpeg;base64," + user.profilePicture} height="30" alt="user icon" loading="lazy" />
               </MDBNavbarBrand>
             </MDBInputGroup>

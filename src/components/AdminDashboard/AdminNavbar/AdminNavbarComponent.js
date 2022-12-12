@@ -14,13 +14,14 @@ import {
 import logo from "../../../images/logo.png";
 import { useLocalState } from "../../../utils/useLocalStorage";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavbarComponent = () => {
   const [showNav, setShowNav] = useState(false);
   const [jwt,setJwt] = useLocalState("","jwt");
   const [userId,setUserId] = useState(getUserFromJwt());
   const [user,setUser] = useState("");
-
+const navigate = useNavigate();
   useEffect(()=>{
     fetch(`/api/v1/users/${userId}`,{
         headers: {
@@ -41,6 +42,14 @@ const AdminNavbarComponent = () => {
       return decJwt.id;
     }
     return [];
+  }
+
+  const showProfile = () => {
+    navigate("/user-detail", {
+      state: {
+        user: user,
+      },
+    })
   }
   
   return (
@@ -64,7 +73,7 @@ const AdminNavbarComponent = () => {
                 Add admin user
               </MDBNavbarLink>
             </MDBNavbarItem>
-            <MDBNavbarItem>
+            <MDBNavbarItem onClick={() => showProfile()}>
               <MDBNavbarLink active href="/" className="link-danger" onClick={() => setJwt("")}>
                 LogOut
               </MDBNavbarLink>

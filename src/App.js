@@ -19,6 +19,7 @@ import LikedSongs from './components/Song/LikedSongsComponent';
 import EditSong from './components/Song/EditSongComponent';
 import NewSong from './components/Song/NewSongComponent';
 import AdminAddUserComponent from './components/AdminDashboard/AdminAddUserComponent';
+import UserDetail from './components/User/UserDetailComponent';
 
 
 function App() {
@@ -83,6 +84,11 @@ function App() {
           <Route path='/add-user' element={
             <PrivateRoute>
               <AdminAddUserComponent />
+            </PrivateRoute>
+          } />
+          <Route path='/user-detail' element={
+            <PrivateRoute>
+              <UserDetail />
             </PrivateRoute>
           } />
           </Routes>

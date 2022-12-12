@@ -14,8 +14,10 @@ import {
 import logo from "../../../images/logo.png";
 import { useLocalState } from "../../../utils/useLocalStorage";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const DefaultNavbarComponent = () => {
+  const navigate = useNavigate();
   const [showNav, setShowNav] = useState(false);
   const [jwt,setJwt] = useLocalState("","jwt");
   const [userId,setUserId] = useState(getUserFromJwt());
@@ -41,6 +43,14 @@ const DefaultNavbarComponent = () => {
       return decJwt.id;
     }
     return [];
+  }
+
+  const showProfile = () => {
+    navigate("/user-detail", {
+      state: {
+        user: user,
+      },
+    });
   }
   
   return (
@@ -76,7 +86,7 @@ const DefaultNavbarComponent = () => {
             </MDBNavbarItem>
           </MDBNavbarNav>
           <MDBInputGroup className="d-flex w-auto mb-1">
-            <MDBNavbarBrand href="/profile">
+            <MDBNavbarBrand onClick={() => showProfile()}>
               <img src={"data:image/jpeg;base64," + user.profilePicture} height="30" alt="user icon" loading="lazy" />
             </MDBNavbarBrand>
           </MDBInputGroup>

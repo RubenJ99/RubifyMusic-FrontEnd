@@ -73,3 +73,10 @@ code {
 .div2 > span {
   margin: 10vw;
 }
+
+.userDet {
+  padding-left: 70vh;
+  display: grid;
+  align-items: center;
+  height: 100vh;
+}
