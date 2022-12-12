@@ -16,6 +16,7 @@ const LogInComponent = () => {
   const [password, setPassword] = useState("");
 
   const [jwt, setJwt] = useLocalState("", "jwt");
+  const [role, setRole] = useLocalState("","role");
 
   function sendLoginReq() {
     const payload = {
@@ -35,6 +36,7 @@ const LogInComponent = () => {
       })
       .then(([body, headers]) => {
         setJwt(headers.get("authorization"));
+        setRole(body.authority)
         window.location.href = "dashboard";
       })
       .catch((message) => {
@@ -83,7 +85,7 @@ const LogInComponent = () => {
                 </a>
               </p>
               <p className="small fw-bold mt-2 pt-1 mb-2">
-                Or?{" "}
+                Or{" "}
                 <a href="/registerPerformer" className="link-danger">
                   Register performer user
                 </a>

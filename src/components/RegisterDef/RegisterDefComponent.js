@@ -37,7 +37,6 @@ const RegisterDefComponent = () => {
   }
 
   function sendRegisterReq(){
-    console.log(icon)
     const payload = {
         email : email,
         password : password,
@@ -47,10 +46,10 @@ const RegisterDefComponent = () => {
         expirationDate : "",
         nameOnCard : "",
         profilePicture: icon,
-        authority : "1",
+        authority : "ROLE_DEFAULT",
     };
 
-    fetch("http://localhost:8080/api/auth/register", {
+    fetch("/api/auth/register", {
       headers: {
         "Content-Type": "application/json",
       },

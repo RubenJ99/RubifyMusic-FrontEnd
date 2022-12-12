@@ -14,15 +14,17 @@ import {
 import logo from "../../../images/logo.png";
 import { useLocalState } from "../../../utils/useLocalStorage";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const DefaultNavbarComponent = () => {
+  const navigate = useNavigate();
   const [showNav, setShowNav] = useState(false);
   const [jwt,setJwt] = useLocalState("","jwt");
   const [userId,setUserId] = useState(getUserFromJwt());
   const [user,setUser] = useState("");
 
   useEffect(()=>{
-    fetch(`http://localhost:8080/api/v1/users/${userId}`,{
+    fetch(`/api/v1/users/${userId}`,{
         headers: {
             "Content-Type": "application/json",
             "Authoritzation" : jwt
@@ -31,7 +33,6 @@ const DefaultNavbarComponent = () => {
     }).then(res => {
         if (res.status === 200) return (res.json());
     }).then(data => {
-        console.log(data)
         setUser(data);
     })
   },[])
@@ -43,9 +44,17 @@ const DefaultNavbarComponent = () => {
     }
     return [];
   }
+
+  const showProfile = () => {
+    navigate("/user-detail", {
+      state: {
+        user: user,
+      },
+    });
+  }
   
   return (
-    <MDBNavbar expand="lg" light bgColor="light">
+    <MDBNavbar expand="lg" light bgColor="light" sticky>
       <MDBContainer fluid>
         <MDBNavbarBrand href="/dashboard">
           <img src={logo} height="30" alt="app logo" loading="lazy" />
@@ -70,9 +79,14 @@ const DefaultNavbarComponent = () => {
                 Liked songs
               </MDBNavbarLink>
             </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink active href="/" className="link-danger" onClick={() => setJwt("")}>
+                LogOut
+              </MDBNavbarLink>
+            </MDBNavbarItem>
           </MDBNavbarNav>
           <MDBInputGroup className="d-flex w-auto mb-1">
-            <MDBNavbarBrand href="/profile">
+            <MDBNavbarBrand onClick={() => showProfile()}>
               <img src={"data:image/jpeg;base64," + user.profilePicture} height="30" alt="user icon" loading="lazy" />
             </MDBNavbarBrand>
           </MDBInputGroup>

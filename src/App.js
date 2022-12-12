@@ -14,18 +14,30 @@ import PerformerDashboardComponent from './components/PerformerDashboard/Perform
 import RegisterDefComponent from './components/RegisterDef/RegisterDefComponent';
 import RegisterPerfComponent from './components/RegisterPerf/RegisterPerfComponent';
 import { RedirectToDashboard } from './utils/redirectToDashboard';
+import SongDetails from './components/Song/SongDetailsComponent';
+import LikedSongs from './components/Song/LikedSongsComponent';
+import EditSong from './components/Song/EditSongComponent';
+import NewSong from './components/Song/NewSongComponent';
+import AdminAddUserComponent from './components/AdminDashboard/AdminAddUserComponent';
+import UserDetail from './components/User/UserDetailComponent';
 
 
 function App() {
   const [jwt,setJwt] = useLocalState("","jwt");
-  const [roles,setRoles] = useState(getRolesFromJwt());
+  const [role, setRole] = useLocalState("","role");
+  const [roles,setRoles] = useState(getRolesFromLS());
+ 
 
-  function getRolesFromJwt(){
+  function getIdFromJwt(){
     if(jwt) {
       const decJwt = jwtDecode(jwt);
-      return decJwt.authorities;
+      return decJwt.id;
     }
     return [];
+  }
+
+  function getRolesFromLS(){
+    if(role)return role;
   }
 
 
@@ -36,10 +48,10 @@ function App() {
             <Route path='/registerDefault' element={<RegisterDefComponent />} />
             <Route path='/registerPerformer' element={<RegisterPerfComponent />} />
             <Route path='/dashboard'
-                  element={roles.find((r)=>r === "ROLE_DEFAULT")? ( 
+                  element={(roles === "ROLE_DEFAULT")? ( 
                   <PrivateRoute>
                     <DefaultDashboardComponent />
-                </PrivateRoute>) : roles.find(r => r === "ROLE_ADMIN") ? (
+                </PrivateRoute>) : (roles === "ROLE_ADMIN") ? (
                   <PrivateRoute>
                     <AdminDashboardComponent/>
                   </PrivateRoute>
@@ -48,6 +60,37 @@ function App() {
                 </PrivateRoute>)
                
             } />
+          <Route path='/song-details' element={
+            <PrivateRoute>
+              <SongDetails />
+            </PrivateRoute>
+          }/>
+          <Route path='/likedsongs' element={
+            <PrivateRoute>
+              <LikedSongs />
+            </PrivateRoute>
+          } />
+          <Route path='/song-edit' element={
+            <PrivateRoute>
+              <EditSong />
+            </PrivateRoute>
+          }
+          />
+          <Route path='/upload-song' element={
+            <PrivateRoute>
+              <NewSong />
+            </PrivateRoute>
+          } />
+          <Route path='/add-user' element={
+            <PrivateRoute>
+              <AdminAddUserComponent />
+            </PrivateRoute>
+          } />
+          <Route path='/user-detail' element={
+            <PrivateRoute>
+              <UserDetail />
+            </PrivateRoute>
+          } />
           </Routes>
   );
 }
